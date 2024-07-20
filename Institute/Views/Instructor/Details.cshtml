@@ -1,0 +1,15 @@
+﻿@model Instructor
+
+<button class="btn btn-primary">
+    <a style="text-decoration:none" class="text-white" href="/Instructor/Index">Back to All Instructors</a>
+</button>
+
+<div class="card m-auto" style="width: 18rem;">
+    <img src="/Images/@Model.ImageUrl" class="card-img-top" alt="...">
+    <div class="card-body">
+        <p class="fs-3">Name: @Model.Name</p>
+        <p class="fs-5">ID: @Model.Id</p>
+        <p class="fs-5">Salary: @Model.Salary.ToString("C")</p>
+        <p class="fs-5">Address: @Model.Address</p>
+    </div>
+</div>
