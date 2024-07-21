@@ -1,26 +1,39 @@
-﻿<p class="display-3">All products</p>
-<table class="table table-bordered table-hover text-center align-middle">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Salary</th>
-            <th>Address</th>
-            <th>Details</th>
-        </tr>
-    </thead>
-    @foreach(Instructor item in Model)
-    {
-        <tr>
-            <td>@item.Id</td>
-            <td>@item.Name</td>
-            <td>@item.Salary.ToString("C")</td>
-            <td>@item.Address</td>
-            <td>
-                <button class="btn btn-primary">
-                    <a class="text-white" style="text-decoration:none" href="/Instructor/Details/@item.Id">Details</a>
-                </button>
-            </td>
-        </tr>
-    }
-</table>
+﻿<p class="display-3">All Instructors</p>
+<div class="container">
+    <div class="d-flex">
+        <button class="btn btn-success ms-auto mb-1">
+            <a class="text-white" style="text-decoration:none" href="/Instructor/Add">New</a>
+        </button>
+    </div>
+    <table class="table table-bordered table-hover text-center align-middle">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Salary</th>
+                <th>Address</th>
+                <th>Details</th>
+                <th>Modify</th>
+            </tr>
+        </thead>
+        @foreach(Instructor item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td>@item.Salary.ToString("C")</td>
+                <td>@item.Address</td>
+                <td>
+                    <button class="btn btn-primary">
+                        <a class="text-white" style="text-decoration:none" href="/Instructor/Details/@item.Id">Details</a>
+                    </button>
+                </td>
+                <td>
+                    <button class="btn btn-primary">
+                        <a class="text-white" style="text-decoration:none" href="/Instructor/Edit/@item.Id">Edit</a>
+                    </button>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
