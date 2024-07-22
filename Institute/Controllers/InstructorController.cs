@@ -81,27 +81,48 @@ namespace Institute.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(InstructorWithDepartmentsAndCoursesVM instructorVM)
+        public IActionResult Edit(InstructorWithDepartmentsAndCoursesVM editInstructorVM)
         {
             if (!ModelState.IsValid)
             {
-                instructorVM.Departments = context.Departments.ToList();
-                instructorVM.Courses = context.Courses.ToList();
-                return View("Edit", instructorVM);
+                editInstructorVM.Departments = context.Departments.ToList();
+                editInstructorVM.Courses = context.Courses.ToList();
+                return View("Edit", editInstructorVM);
             }
 
-            var instructor = context.Instructors.FirstOrDefault(ins => ins.Id == instructorVM.Id);
+            var instructor = context.Instructors.FirstOrDefault(ins => ins.Id == editInstructorVM.Id);
 
-            instructor.Name = instructorVM.Name;
-            instructor.ImageUrl = instructorVM.ImageUrl;
-            instructor.Salary = instructorVM.Salary;
-            instructor.Address = instructorVM.Address;
-            instructor.DepartmentId = instructorVM.DepartmentId;
-            instructor.CourseId = instructorVM.CourseId;
+            instructor.Name = editInstructorVM.Name;
+            instructor.ImageUrl = editInstructorVM.ImageUrl;
+            instructor.Salary = editInstructorVM.Salary;
+            instructor.Address = editInstructorVM.Address;
+            instructor.DepartmentId = editInstructorVM.DepartmentId;
+            instructor.CourseId = editInstructorVM.CourseId;
 
             context.SaveChanges();
 
             return RedirectToAction("Index");
+        }
+
+        [HttpDelete]
+        public IActionResult Delete(int id)
+        {
+            try
+            {
+                var instructor = context.Instructors.FirstOrDefault(ins => ins.Id == id);
+                if (instructor == null)
+                {
+                    return StatusCode(404, new {message = "Instructor not found."});
+                }
+                context.Instructors.Remove(instructor);
+                context.SaveChanges();
+                return StatusCode(201, new {message = "Instructor successfully removed."});
+            }
+            catch
+            {
+                return StatusCode(500, $"An error occured while removing the instructor.");
+            }
+
         }
     }
 }

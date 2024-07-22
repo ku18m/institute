@@ -8,7 +8,7 @@ namespace Institute.ViewModels
         public int Id { get; set; }
 
         [Required]
-        public required string Name { get; set; }
+        public string Name { get; set; }
 
         public string? ImageUrl { get; set; }
         
@@ -16,7 +16,7 @@ namespace Institute.ViewModels
         public decimal Salary { get; set; }
 
         [Required]
-        public required string Address { get; set; }
+        public string Address { get; set; }
 
         [Required]
         public int DepartmentId { get; set; }

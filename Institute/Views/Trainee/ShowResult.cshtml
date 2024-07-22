@@ -1,0 +1,38 @@
+﻿@model StudentWithCourseDegreeVM
+@{
+    ViewData["Title"] = "Student result";
+}
+
+<p class="display-5">Edit Instructor</p>
+
+<button class="btn btn-primary">
+    <a style="text-decoration:none" class="text-white" href="/Instructor/Index">Back to All Instructors</a>
+</button>
+
+        <table class="table table-bordered mt-3 text-@Model.Color">
+            <tr>
+                <td>
+                    <p class="fs-3">Student Name</p>
+                </td>
+                <td>
+                    <p class="fs-3">@Model.TraineeName</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="fs-3">Course Name</p>
+                </td>
+                <td>
+                    <p class="fs-3">@Model.CrsName</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="fs-3">Degree</p>
+                </td>
+                <td>
+                    <p class="fs-3">@Model.Degree</p>
+                </td>
+            </tr>
+        </table>
+

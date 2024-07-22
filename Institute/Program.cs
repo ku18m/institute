@@ -9,6 +9,11 @@ namespace Institute
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+            builder.Services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(20);
+            });
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -17,6 +22,8 @@ namespace Institute
                 app.UseExceptionHandler("/Home/Error");
             }
             app.UseStaticFiles();
+
+            app.UseSession();
 
             app.UseRouting();
 

@@ -1,0 +1,24 @@
+﻿@model TraineeResults
+@{
+    ViewData["Title"] = "Student Results";
+}
+
+<button class="btn btn-primary mb-3">
+    <a style="text-decoration:none" class="text-white" href="/Instructor/Index">Back to All Instructors</a>
+</button>
+<p class="display-5">@Model.TraineeName Results</p>
+
+<table class="table table-bordered mt-3">
+    <tr>
+        <th>Course Name</th>
+        <th>Degree</th>
+    </tr>
+    @foreach (var item in Model.CourseResults)
+    {
+        <tr class="text-@item.Color">
+            <td>@item.CrsName</td>
+            <td>@item.Degree</td>
+        </tr>
+    }
+</table>
+
