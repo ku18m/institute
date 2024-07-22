@@ -9,7 +9,7 @@
 <p class="display-5">Edit Instructor</p>
 
 <div class="container">
-    <form action="./@Model.Id" method="post">
+    <form action="./@Model.Id" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label for="Name">Name</label>
             <input type="text" class="form-control" id="Name" name="Name" placeholder="Enter Name" value="@Model.Name">
@@ -23,8 +23,16 @@
             <input type="text" class="form-control" id="Address" name="Address" placeholder="Enter Address" value="@Model.Address">
         </div>
         <div class="form-group">
-            <label for="ImageUrl">ImageUrl</label>
-            <input type="text" class="form-control" id="ImageUrl" name="ImageUrl" placeholder="Enter ImageUrl" value="@Model.ImageUrl">
+            <div class="row">
+                <div class="form-group col-6">
+                    <label for="imgFile">Image</label>
+                    <input type="file" class="form-control" id="imgFile" name="imgFile">
+                </div>
+                <div class="form-group col-6">
+                    <p>Current Image Preview</p>
+                    <img class="img-thumbnail" width="100" height="100" src="@Model.ImageUrl" alt="current image" />
+                </div>
+            </div>
         </div>
         <div class="form-group">
             <label for="DepartmentId">Department</label>

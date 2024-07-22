@@ -11,7 +11,8 @@ namespace Institute.ViewModels
         public string Name { get; set; }
 
         public string? ImageUrl { get; set; }
-        
+        public IFormFile? imgFile { get; set; }
+
         [Required, Range(6000, double.MaxValue)]
         public decimal Salary { get; set; }
 
