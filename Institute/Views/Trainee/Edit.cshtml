@@ -1,0 +1,52 @@
+﻿@model TraineeWithDepartmentsVM
+@{
+    ViewData["Title"] = "Edit Trainee";
+}
+<button class="btn btn-primary mb-3">
+    <a style="text-decoration:none" class="text-white" href="/trainee/Index">Back to All Trainees</a>
+</button>
+<p class="display-5">Add Trainee</p>
+
+<div class="container">
+    <form asp-action="Edit" asp-route-TraineeId="@Model.TraineeId" enctype="multipart/form-data">
+        <div class="form-group">
+            <label asp-for="TraineeName">Name</label>
+            <input asp-for="TraineeName" class="form-control" />
+            <span asp-validation-for="TraineeName" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="TraineeAddress">Address</label>
+            <input asp-for="TraineeAddress" class="form-control" />
+            <span asp-validation-for="TraineeAddress" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="TraineeGrade">Grade</label>
+            <input asp-for="TraineeGrade" class="form-control" type="number" />
+            <span asp-validation-for="TraineeGrade" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="DepartmentId">Department</label>
+            <select asp-for="DepartmentId" asp-items="Model.Departments" class="form-control">
+            </select>
+            <span asp-validation-for="DepartmentId" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <div class="row">
+                <div class="form-group col-6">
+                    <label asp-for="imgFile">Image</label>
+                    <input asp-for="imgFile" type="file" class="form-control" />
+                </div>
+                <div class="form-group col-6">
+                    <p>Current Image Preview</p>
+                    <img class="img-thumbnail" width="100" height="100" src="@Model.TraineeImageUrl" alt="current image" />
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-2">Submit</button>
+    </form>
+</div>

@@ -8,7 +8,7 @@ namespace Institute.Models
         public required string Name { get; set; }
         public string? ImageUrl { get; set; }
         public string? Address { get; set; }
-        public int Grade { get; set; }
+        public int? Grade { get; set; }
 
         [ForeignKey("Department")]
         public int DepartmentId { get; set; }

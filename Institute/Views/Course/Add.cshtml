@@ -1,0 +1,39 @@
+﻿@model CourseWithDepartmentsVM
+@{
+    ViewData["Title"] = "Add Course";
+}
+<button class="btn btn-primary mb-3">
+    <a style="text-decoration:none" class="text-white" href="/course/Index">Back to All Courses</a>
+</button>
+<p class="display-5">Add Course</p>
+
+<div class="container">
+    <form asp-action="Add" enctype="multipart/form-data">
+        <div class="form-group">
+            <label asp-for="CourseName">Name</label>
+            <input asp-for="CourseName" class="form-control" />
+            <span asp-validation-for="CourseName" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="CourseDegree">Degree</label>
+            <input asp-for="CourseDegree" class="form-control" />
+            <span asp-validation-for="CourseDegree" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="CourseMinDegree">Minimum Degree</label>
+            <input asp-for="CourseMinDegree" class="form-control" type="number" />
+            <span asp-validation-for="CourseMinDegree" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="DepartmentId">Department</label>
+            <select asp-for="DepartmentId" asp-items="Model.Departments" class="form-control">
+            </select>
+            <span asp-validation-for="DepartmentId" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-2">Submit</button>
+    </form>
+</div>

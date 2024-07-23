@@ -1,4 +1,4 @@
-﻿@model InstructorPaginationVM
+﻿@model PaginationVM<Instructor>
 @{
     ViewData["Title"] = "Instructors";
 }
@@ -33,7 +33,7 @@
                 <th>Remove</th>
             </tr>
         </thead>
-        @foreach (Instructor item in Model.Instructors)
+        @foreach (var item in Model.Items)
         {
             <tr id="@item.Id">
                 <td>@item.Id</td>

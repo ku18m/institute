@@ -17,11 +17,11 @@ namespace Institute.Controllers
         public IActionResult Index(int page = 1)
         {
             int pageSize = 5;
-            var instructorVM = new InstructorPaginationVM()
+            var instructorVM = new PaginationVM<Instructor>()
             {
                 CurrentPage = page,
                 TotalPages = (int)Math.Ceiling((double)context.Instructors.Count() / pageSize),
-                Instructors = context.Instructors.Skip((page - 1) * pageSize).Take(pageSize).ToList()
+                Items = context.Instructors.Skip((page - 1) * pageSize).Take(pageSize).ToList()
             };
 
             return View("IndexPagination", instructorVM);
@@ -31,7 +31,7 @@ namespace Institute.Controllers
         public IActionResult Search(string searchString, string propertyToSearch)
         {
             List<Instructor> filteredInstructors;
-            InstructorSearchVM instructorSearchVM;
+            SearchVM<Instructor> instructorSearchVM;
 
             switch (propertyToSearch)
             {
@@ -48,11 +48,11 @@ namespace Institute.Controllers
                     break;
             }
 
-            instructorSearchVM = new InstructorSearchVM()
+            instructorSearchVM = new SearchVM<Instructor>()
             {
                 SearchString = searchString,
                 SearchProperty = propertyToSearch,
-                Instructors = filteredInstructors
+                Items = filteredInstructors
             };
 
             return View("Search", instructorSearchVM);

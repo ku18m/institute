@@ -1,28 +1,27 @@
-﻿@model SearchVM<Instructor>
-
+﻿@model SearchVM<Course>
 @{
-    ViewData["Title"] = "Instructors Search";
+    ViewData["Title"] = "Courses Search";
 }
 
 <button class="btn btn-primary mb-3">
-    <a style="text-decoration:none" class="text-white" href="/Instructor/Index">Back to All Instructors</a>
+    <a style="text-decoration:none" class="text-white" href="/course/Index">Back to All Courses</a>
 </button>
 <p class="display-3">Search results for @Model.SearchProperty?.ToUpper() "@Model.SearchString"</p>
 <div class="container">
     <div class="d-flex">
-        <form action="/instructor/search" method="post">
+        <form action="/course/search" method="post">
             <div class="input-group me-auto">
                 <input class="form-control" type="search" name="searchString" placeholder="Search" />
                 <select class="form-select" name="propertyToSearch">
                     <option value="name">Name</option>
-                    <option value="address">Address</option>
-                    <option value="salary">Salary</option>
+                    <option value="degree">Degree</option>
+                    <option value="minDegree">Minimum Degree</option>
                 </select>
                 <button class="btn btn-success" type="submit"><i class="bi bi-search"></i></button>
             </div>
         </form>
         <button class="btn btn-success ms-auto mb-1">
-            <a class="text-white" style="text-decoration:none" href="/Instructor/Add">New</a>
+            <a class="text-white" style="text-decoration:none" href="/course/Add">New</a>
         </button>
     </div>
     <table class="table table-bordered table-hover text-center align-middle">
@@ -30,28 +29,28 @@
             <tr>
                 <th>ID</th>
                 <th>Name</th>
-                <th>Salary</th>
-                <th>Address</th>
+                <th>Degree</th>
+                <th>Minimum Degree</th>
                 <th>Details</th>
                 <th>Modify</th>
                 <th>Remove</th>
             </tr>
         </thead>
-        @foreach (Instructor item in Model.Items)
+        @foreach (var item in Model.Items)
         {
             <tr id="@item.Id">
                 <td>@item.Id</td>
                 <td>@item.Name</td>
-                <td>@item.Salary.ToString("C")</td>
-                <td>@item.Address</td>
+                <td>@item.Degree</td>
+                <td>@item.MinDegree</td>
                 <td>
                     <button class="btn btn-primary">
-                        <a class="text-white" style="text-decoration:none" href="/Instructor/Details/@item.Id">Details</a>
+                        <a class="text-white" style="text-decoration:none" href="/course/Details/@item.Id">Details</a>
                     </button>
                 </td>
                 <td>
                     <button class="btn btn-warning">
-                        <a class="text-white" style="text-decoration:none" href="/Instructor/Edit/@item.Id">Edit</a>
+                        <a class="text-white" style="text-decoration:none" href="/course/Edit/@item.Id">Edit</a>
                     </button>
                 </td>
                 <td>
@@ -68,8 +67,8 @@
 
 <script>
     function confirmDelete(id) {
-        if (confirm("Are you sure you want to delete this instructor?")) {
-            fetch(`/Instructor/Delete/${id}`, {
+        if (confirm("Are you sure you want to delete this course?")) {
+            fetch(`/course/Delete/${id}`, {
                 method: "DELETE"
             })
                 .then(response => response.json().then(data => ({ status: response.status, message: data.message })))
