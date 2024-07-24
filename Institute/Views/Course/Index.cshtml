@@ -1,16 +1,17 @@
 ﻿@model PaginationVM<Course>
 @{
     ViewData["Title"] = "Courses";
+    ViewData["HeaderTitle"] = "Courses";
 }
 
-<p class="display-3">All Courses</p>
 <div class="container">
     <div class="d-flex">
         <form action="/course/search" method="post">
             <div class="input-group me-auto">
                 <input class="form-control" type="search" name="searchString" placeholder="Search" />
-                <select class="form-select" name="propertyToSearch">
+                <select class="form-select" name="SearchProperty">
                     <option value="name">Name</option>
+                    <option value="hours">Hours</option>
                     <option value="degree">Degree</option>
                     <option value="minDegree">Minimum Degree</option>
                 </select>
@@ -26,6 +27,7 @@
             <tr>
                 <th>ID</th>
                 <th>Name</th>
+                <th>Hours</th>
                 <th>Degree</th>
                 <th>Minimum Degree</th>
                 <th>Details</th>
@@ -38,6 +40,7 @@
             <tr id="@item.Id">
                 <td>@item.Id</td>
                 <td>@item.Name</td>
+                <td>@item.Hours</td>
                 <td>@item.Degree</td>
                 <td>@item.MinDegree</td>
                 <td>

@@ -2,6 +2,8 @@
 
 @{
     ViewData["Title"] = "Instructors Search";
+    ViewData["HeaderTitle"] = "Instructors";
+    ViewData["HeaderSubTitle"] = $"Search results for {@Model.SearchProperty?.ToUpper()} \"{@Model.SearchString}\"";
 }
 
 <button class="btn btn-primary mb-3">

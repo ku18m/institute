@@ -8,6 +8,8 @@ namespace Institute.ViewModels
 
         public string CourseName { get; set; }
 
+        public int? CourseHours { get; set; }
+
         public int CourseDegree { get; set; }
 
         public int CourseMinDegree { get; set; }

@@ -1,11 +1,12 @@
 ﻿@model TraineeWithDepartmentsVM
 @{
     ViewData["Title"] = "Add Trainee";
+    ViewData["HeaderTitle"] = "Add Trainee";
 }
+
 <button class="btn btn-primary mb-3">
     <a style="text-decoration:none" class="text-white" href="/trainee/Index">Back to All Trainees</a>
 </button>
-<p class="display-5">Add Trainee</p>
 
 <div class="container">
     <form asp-action="Add" enctype="multipart/form-data">

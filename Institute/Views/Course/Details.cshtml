@@ -1,4 +1,9 @@
 ﻿@model CourseDetailsVM
+@{
+    ViewData["Title"] = $"{@Model.CourseName} - Course";
+    ViewData["HeaderTitle"] = $"{@Model.CourseName}";
+    ViewData["HeaderSubTitle"] = "Course";
+}
 
 <button class="btn btn-primary">
     <a style="text-decoration:none" class="text-white" href="/course/Index">Back to All Courses</a>
@@ -13,6 +18,7 @@
             <thead>
             <th>ID</th>
             <th>Name</th>
+            <th>Hours</th>
             <th>Degree</th>
             <th>Minimum Degree</th>
             <th>Department</th>
@@ -20,6 +26,7 @@
             <tr>
                 <td>@Model.CourseId</td>
                 <td>@Model.CourseName</td>
+                <td>@Model.CourseHours</td>
                 <td>@Model.CourseDegree</td>
                 <td>@Model.CourseMinDegree</td>
                 <td>

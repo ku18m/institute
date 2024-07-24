@@ -1,4 +1,9 @@
 ﻿@model Instructor
+@{
+    ViewData["Title"] = $"{Model.Name} - Instructor";
+    ViewData["HeaderTitle"] = $"{Model.Name}";
+    ViewData["HeaderSubTitle"] = "Instructor";
+}
 
 <button class="btn btn-primary">
     <a style="text-decoration:none" class="text-white" href="/Instructor/Index">Back to All Instructors</a>

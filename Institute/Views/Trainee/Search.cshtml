@@ -1,13 +1,15 @@
 ﻿@model SearchVM<Trainee>
 
 @{
-    ViewData["Title"] = "Trainee Search";
+    ViewData["Title"] = "Instructors Search";
+    ViewData["HeaderTitle"] = "Instructors";
+    ViewData["HeaderSubTitle"] = $"Search results for {@Model.SearchProperty?.ToUpper()} \"{@Model.SearchString}\"";
 }
 
 <button class="btn btn-primary mb-3">
     <a style="text-decoration:none" class="text-white" href="/trainee/Index">Back to All Trainees</a>
 </button>
-<p class="display-3">Search results for @Model.SearchProperty?.ToUpper() "@Model.SearchString"</p>
+
 <div class="container">
     <div class="d-flex">
         <form action="/trainee/search" method="post">

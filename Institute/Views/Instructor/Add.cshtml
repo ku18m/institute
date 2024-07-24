@@ -1,11 +1,13 @@
 ﻿@model InstructorWithDepartmentsAndCoursesVM
 @{
     ViewData["Title"] = "Add Instructor";
+    ViewData["HeaderTitle"] = "New Instructor";
+    ViewData["HeaderSubTitle"] = "Be aware, salary must be more than 6000";
 }
+
 <button class="btn btn-primary mb-3">
     <a style="text-decoration:none" class="text-white" href="/Instructor/Index">Back to All Instructors</a>
 </button>
-<p class="display-5">Add Instructor</p>
 
 <div class="container">
     <form action="./Add" method="post" enctype="multipart/form-data">

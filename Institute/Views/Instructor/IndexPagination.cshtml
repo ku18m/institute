@@ -1,9 +1,9 @@
 ﻿@model PaginationVM<Instructor>
 @{
     ViewData["Title"] = "Instructors";
+    ViewData["HeaderTitle"] = "Instructors";
 }
 
-<p class="display-3">All Instructors</p>
 <div class="container">
     <div class="d-flex">
         <form action="/instructor/search" method="post">

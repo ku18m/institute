@@ -6,6 +6,7 @@ namespace Institute.Models
     {
         public int Id { get; set; }
         public required string Name { get; set; }
+        public int Hours { get; set; }
         public int Degree { get; set; }
         public int MinDegree { get; set; }
 
@@ -13,8 +14,8 @@ namespace Institute.Models
         public int DepartmentId { get; set; }
         public virtual Department? Department { get; set; }
 
-        public virtual ICollection<Instructor> Instructors { get; set; }
+        public virtual ICollection<Instructor>? Instructors { get; set; }
 
-        public virtual ICollection<CourseResult> CourseResults { get; set; }
+        public virtual ICollection<CourseResult>? CourseResults { get; set; }
     }
 }

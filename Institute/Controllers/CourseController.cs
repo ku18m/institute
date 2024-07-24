@@ -57,6 +57,11 @@ namespace Institute.Controllers
 
             switch (searchVM.SearchProperty)
             {
+                case "hours":
+                    int hours;
+                    int.TryParse(searchVM.SearchString, out hours);
+                    filteredCourses = context.Courses.Where(crs => crs.Hours == hours).ToList();
+                    break;
                 case "degree":
                     int degree;
                     int.TryParse(searchVM.SearchString, out degree);
@@ -85,6 +90,7 @@ namespace Institute.Controllers
                     CourseId = crs.Id,
                     CourseName = crs.Name,
                     CourseDegree = crs.Degree,
+                    CourseHours = crs.Hours,
                     CourseMinDegree = crs.MinDegree,
                     DepartmentId = crs.DepartmentId,
                     DepartmentName = crs.Department.Name,
@@ -134,6 +140,7 @@ namespace Institute.Controllers
             var course = new Course()
             {
                 Name = courseVM.CourseName,
+                Hours = courseVM.CourseHours,
                 Degree = courseVM.CourseDegree,
                 MinDegree = courseVM.CourseMinDegree,
                 DepartmentId = courseVM.DepartmentId,
@@ -154,6 +161,7 @@ namespace Institute.Controllers
             {
                 CourseId = course.Id,
                 CourseName = course.Name,
+                CourseHours = course.Hours,
                 CourseDegree = course.Degree,
                 CourseMinDegree = course.MinDegree,
                 DepartmentId = course.DepartmentId,
@@ -184,6 +192,7 @@ namespace Institute.Controllers
             var course = context.Courses.Find(editCourseVM.CourseId);
 
             course.Name = editCourseVM.CourseName;
+            course.Hours = editCourseVM.CourseHours;
             course.Degree = editCourseVM.CourseDegree;
             course.MinDegree = editCourseVM.CourseMinDegree;
             course.DepartmentId = editCourseVM.DepartmentId;
@@ -211,7 +220,24 @@ namespace Institute.Controllers
             {
                 return StatusCode(500, $"An error occured while removing the Course.");
             }
+        }
 
+        public IActionResult ValidateMinDegree(int courseMinDegree, int courseDegree)
+        {
+            if (courseMinDegree > courseDegree)
+            {
+                return Json("Course Degree is lower than the minimum degree.");
+            }
+            return Json(true);
+        }
+
+        public IActionResult ValidateHours(int courseHours)
+        {
+            if (courseHours % 3 != 0)
+            {
+                return Json("The course hours must be divisible by 3.");
+            }
+            return Json(true);
         }
     }
 }

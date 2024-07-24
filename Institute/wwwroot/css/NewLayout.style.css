@@ -1,4 +1,4 @@
-﻿a.navbar-brand {
+﻿/*a.navbar-brand {
     white-space: normal;
     text-align: center;
     word-break: break-all;
@@ -20,19 +20,6 @@ a {
     border-color: #1861ac;
 }
 
-.navbar-nav .nav-link span.activeNav {
-    /*font-weight: bold;*/
-    color: coral;
-}
-
-.navbar-nav .nav-link span {
-    transition: color 0.1s ease, font-weight 0.1s ease;
-}
-
-.navbar-nav .nav-link span:hover {
-    color: lightcoral;
-    font-weight: bold;
-}
 
 .border-top {
     border-top: 1px solid #e5e5e5;
@@ -50,6 +37,34 @@ button.accept-policy {
     font-size: 1rem;
     line-height: inherit;
 }
+*/
+
+.navbar {
+    background-color: #606676;
+}
+
+.navbar-brand {
+    color: #FEF3E2;
+}
+
+.navbar-brand:hover {
+    color: #BEC6A0;
+}
+
+.navbar-nav .nav-link span.activeNav {
+    font-weight: bold;
+    color: #BEC6A0;
+}
+
+.navbar-nav .nav-link span {
+    color: #FEF3E2;
+    transition: color 0.1s ease, font-weight 0.1s ease;
+}
+
+.navbar-nav .nav-link span:hover {
+    color: #BEC6A0;
+    font-weight: bold;
+}
 
 .footer {
     position: absolute;
@@ -57,4 +72,18 @@ button.accept-policy {
     width: 100%;
     white-space: nowrap;
     line-height: 60px;
+    background-color: #606676;
+    color: #FEF3E2;
+}
+
+input {
+    background-color: #708871 !important;
+}
+
+select {
+    background-color: #708871 !important;
+}
+
+.btn-success {
+    background-color: #606676;
 }

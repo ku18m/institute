@@ -1,4 +1,10 @@
 ﻿@model DepartmentDetailsVM
+@{
+    ViewData["Title"] = $"{@Model.DepartmentName} - Department";
+    ViewData["HeaderTitle"] = $"{@Model.DepartmentName}";
+    ViewData["HeaderSubTitle"] = "Department";
+}
+
 
 <button class="btn btn-primary">
     <a style="text-decoration:none" class="text-white" href="/department/Index">Back to All departments</a>

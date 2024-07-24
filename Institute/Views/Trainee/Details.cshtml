@@ -1,10 +1,14 @@
 ﻿@model TraineeDetailsVM
+@{
+    ViewData["Title"] = $"{@Model.TraineeName} - Trainee";
+    ViewData["HeaderTitle"] = $"{@Model.TraineeName}";
+    ViewData["HeaderSubTitle"] = "Trainee";
+}
 
 <button class="btn btn-primary">
     <a style="text-decoration:none" class="text-white" href="/trainee/Index">Back to All Trainees</a>
 </button>
 <div>
-        <p class="display-3">Details of Trainee: @Model.TraineeName</p>
     <div class="container d-flex">
         <img class="img-thumbnail m-auto" width="200" height="200" src="@Model.TraineeImageUrl" alt="image preview" />
     </div>
