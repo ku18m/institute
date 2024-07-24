@@ -96,7 +96,7 @@ namespace Institute.Controllers
                     DepartmentName = crs.Department.Name,
                     Instructors = crs.Instructors.ToList(),
                     CourseResults = context.CourseResults
-                        .Where(crs => crs.CourseId == crs.Id)
+                        .Where(crslt => crslt.CourseId == crs.Id)
                         .Select(crslt => new StudentWithCourseDegreeVM
                         {
                             TraineeName = crslt.Trainee.Name,
