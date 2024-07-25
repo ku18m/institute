@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Institute.Controllers
 {
-    public class DepartmentController : Controller
+    public partial class DepartmentController : Controller
     {
         private readonly InstituteContext context = new();
         public IActionResult Index(int page = 1)
