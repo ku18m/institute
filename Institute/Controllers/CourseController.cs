@@ -1,13 +1,13 @@
 ﻿using Institute.Models;
+using Institute.Repository;
 using Institute.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Institute.Controllers
 {
-    public class CourseController : Controller
+    public class CourseController(InstituteContext context, ICourseRepo CourseRepo, IDepartmentRepo DepartmentRepo) : Controller
     {
-        private readonly InstituteContext context = new();
         public IActionResult ShowCourseResult(int id)
         {
             var courseResults = context.CourseResults
@@ -42,8 +42,8 @@ namespace Institute.Controllers
             var coursesVM = new PaginationVM<Course>()
             {
                 CurrentPage = page,
-                TotalPages = (int)Math.Ceiling((double)context.Courses.Count() / pageSize),
-                Items = context.Courses.Skip((page - 1) * pageSize).Take(pageSize).ToList()
+                TotalPages = CourseRepo.GetTotalPages(pageSize),
+                Items = CourseRepo.GetPage(page)
             };
 
             return View("Index", coursesVM);
@@ -52,59 +52,16 @@ namespace Institute.Controllers
         [HttpPost]
         public IActionResult Search(SearchVM<Course> searchVM)
         {
-            List<Course> filteredCourses;
             SearchVM<Course> courseSearchVM;
 
-            switch (searchVM.SearchProperty)
-            {
-                case "hours":
-                    int hours;
-                    int.TryParse(searchVM.SearchString, out hours);
-                    filteredCourses = context.Courses.Where(crs => crs.Hours == hours).ToList();
-                    break;
-                case "degree":
-                    int degree;
-                    int.TryParse(searchVM.SearchString, out degree);
-                    filteredCourses = context.Courses.Where(crs => crs.Degree == degree).ToList();
-                    break;
-                case "minDegree":
-                    int minDegree;
-                    int.TryParse(searchVM.SearchString, out minDegree);
-                    filteredCourses = context.Courses.Where(crs => crs.MinDegree == minDegree).ToList();
-                    break;
-                default: // Otherwise, search by name.
-                    filteredCourses = context.Courses.Where(tr => tr.Name.Contains(searchVM.SearchString)).ToList();
-                    break;
-            }
-
-            searchVM.Items = filteredCourses;
+            searchVM.Items = CourseRepo.Search(searchVM.SearchString, searchVM.SearchString);
 
             return View("Search", searchVM);
         }
 
         public IActionResult Details(int id)
         {
-            var courseVM = context.Courses.Where(crs => crs.Id == id)
-                .Select(crs => new CourseDetailsVM
-                {
-                    CourseId = crs.Id,
-                    CourseName = crs.Name,
-                    CourseDegree = crs.Degree,
-                    CourseHours = crs.Hours,
-                    CourseMinDegree = crs.MinDegree,
-                    DepartmentId = crs.DepartmentId,
-                    DepartmentName = crs.Department.Name,
-                    Instructors = crs.Instructors.ToList(),
-                    CourseResults = context.CourseResults
-                        .Where(crslt => crslt.CourseId == crs.Id)
-                        .Select(crslt => new StudentWithCourseDegreeVM
-                        {
-                            TraineeName = crslt.Trainee.Name,
-                            Degree = crslt.Degree,
-                            IsPassed = crslt.Degree >= crslt.Course.MinDegree
-                        }).ToList()
-                }
-                ).FirstOrDefault();
+            CourseDetailsVM courseVM = CourseRepo.BindGetCourseDetails(id);
 
             return View("Details", courseVM);
         }
@@ -114,7 +71,7 @@ namespace Institute.Controllers
         {
             var addCourseVM = new CourseWithDepartmentsVM()
             {
-                Departments = context.Departments.Select(dept => new SelectListItem
+                Departments = DepartmentRepo.GetAll().Select(dept => new SelectListItem
                 {
                     Value = dept.Id.ToString(),
                     Text = dept.Name
@@ -128,7 +85,7 @@ namespace Institute.Controllers
         {
             if (!ModelState.IsValid)
             {
-                courseVM.Departments = context.Departments.Select(dept => new SelectListItem
+                courseVM.Departments = DepartmentRepo.GetAll().Select(dept => new SelectListItem
                 {
                     Value = dept.Id.ToString(),
                     Text = dept.Name
@@ -146,8 +103,9 @@ namespace Institute.Controllers
                 DepartmentId = courseVM.DepartmentId,
             };
 
-            context.Courses.Add(course);
-            context.SaveChanges();
+            CourseRepo.Insert(course);
+
+            CourseRepo.Save();
 
             return RedirectToAction("Index");
         }
@@ -155,7 +113,7 @@ namespace Institute.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            var course = context.Courses.Find(id);
+            var course = CourseRepo.GetById(id);
 
             var editCourseVM = new CourseWithDepartmentsVM()
             {
@@ -165,7 +123,7 @@ namespace Institute.Controllers
                 CourseDegree = course.Degree,
                 CourseMinDegree = course.MinDegree,
                 DepartmentId = course.DepartmentId,
-                Departments = context.Departments.Select(dept => new SelectListItem
+                Departments = DepartmentRepo.GetAll().Select(dept => new SelectListItem
                 {
                     Value = dept.Id.ToString(),
                     Text = dept.Name
@@ -180,7 +138,7 @@ namespace Institute.Controllers
         {
             if (!ModelState.IsValid)
             {
-                editCourseVM.Departments = context.Departments.Select(dept => new SelectListItem
+                editCourseVM.Departments = DepartmentRepo.GetAll().Select(dept => new SelectListItem
                 {
                     Value = dept.Id.ToString(),
                     Text = dept.Name
@@ -189,15 +147,21 @@ namespace Institute.Controllers
                 return View("Edit", editCourseVM);
             }
 
-            var course = context.Courses.Find(editCourseVM.CourseId);
 
-            course.Name = editCourseVM.CourseName;
-            course.Hours = editCourseVM.CourseHours;
-            course.Degree = editCourseVM.CourseDegree;
-            course.MinDegree = editCourseVM.CourseMinDegree;
-            course.DepartmentId = editCourseVM.DepartmentId;
+            Course course = new() 
+            { 
+                Id = (int)editCourseVM.CourseId,
+                Name = editCourseVM.CourseName,
+                Hours = editCourseVM.CourseHours,
+                Degree = editCourseVM.CourseDegree,
+                MinDegree = editCourseVM.CourseMinDegree,
+                DepartmentId = editCourseVM.DepartmentId
+            };
 
-            context.SaveChanges();
+
+            CourseRepo.Update(course);
+
+            CourseRepo.Save();
 
             return RedirectToAction("Index");
         }
@@ -207,13 +171,16 @@ namespace Institute.Controllers
         {
             try
             {
-                var course = context.Courses.Find(id);
+                var course = CourseRepo.GetById(id);
                 if (course == null)
                 {
                     return StatusCode(404, new { message = "Course not found." });
                 }
-                context.Courses.Remove(course);
-                context.SaveChanges();
+
+                CourseRepo.Delete(id);
+
+                CourseRepo.Save();
+
                 return StatusCode(201, new { message = "Course successfully removed." });
             }
             catch

@@ -10,6 +10,14 @@ namespace Institute.Models
         public virtual DbSet<Course> Courses { get; set; }
         public virtual DbSet<CourseResult> CourseResults { get; set; }
 
+        public InstituteContext(DbContextOptions<InstituteContext> options) : base(options)
+        {
+        }
+
+        public InstituteContext()
+        {
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Server=DESKTOP-C2CGBOT\\SQLEXPRESS;Database=InstituteDB;Trusted_Connection=True;Encrypt=False;TrustServerCertificate=True");
