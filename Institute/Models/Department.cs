@@ -13,8 +13,8 @@ namespace Institute.Models
         public required string Manager { get; set; }
 
 
-        public virtual ICollection<Course> Courses { get; set; }
-        public virtual ICollection<Instructor> Instructors { get; set; }
-        public virtual ICollection<Trainee> Trainees { get; set; }
+        public virtual ICollection<Course>? Courses { get; set; }
+        public virtual ICollection<Instructor>? Instructors { get; set; }
+        public virtual ICollection<Trainee>? Trainees { get; set; }
     }
 }

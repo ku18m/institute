@@ -1,0 +1,88 @@
+﻿@model InstructorWithDepartmentsAndCoursesVM
+@{
+    ViewData["Title"] = "Add Instructor";
+    ViewData["HeaderTitle"] = "New Instructor";
+    ViewData["HeaderSubTitle"] = "Be aware, salary must be more than 6000";
+}
+
+<button class="btn btn-primary mb-3">
+    <a style="text-decoration:none" class="text-white" href="/Instructor/Index">Back to All Instructors</a>
+</button>
+
+<div class="container">
+    <form action="./Add" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label asp-for="Name" >Name</label>
+            <input asp-for="Name" class="form-control" placeholder="Enter Name">
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Salary" for="Salary">Salary</label>
+            <input asp-for="Salary" class="form-control" placeholder="Enter Salary" >
+            <span asp-validation-for="Salary" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Address">Address</label>
+            <input asp-for="Address" class="form-control" placeholder="Enter Address" >
+            <span asp-validation-for="Address" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="imgFile">Image</label>
+            <input asp-for="imgFile" type="file" class="form-control" >
+        </div>
+        <div class="form-group">
+            <label asp-for="DepartmentId">Department</label>
+            <select asp-for="DepartmentId" class="form-control" onchange="getCourses()">
+                <option value="">Select Department</option>
+                @foreach (var department in Model.Departments)
+                {
+                    if (Model.DepartmentId == department.Id)
+                    {
+                        <option value="@department.Id" selected>@department.Name</option>
+                    }
+                    else
+                    {
+                        <option value="@department.Id">@department.Name</option>
+                    }
+                }
+            </select>
+            <span asp-validation-for="DepartmentId" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="CourseId">Course</label>
+            <select asp-for="CourseId" class="form-control" >
+                <option value="">Select The Department First</option>
+            </select>
+            <span asp-validation-for="CourseId" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-2">Submit</button>
+    </form>
+</div>
+
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}
+
+<script>
+    function getCourses() {
+        var departmentId = document.getElementById("DepartmentId").value;
+        var coursesSelectList = document.getElementById("CourseId");
+        var url = "/Department/GetCoursesForInput/" + departmentId;
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                var options = `<option value="">Select Course</option>`;
+                data.forEach(course => {
+                    console.log(course);
+                    options += `<option value="${course.id}">${course.name}</option>`;
+                });
+                coursesSelectList.innerHTML = options;
+                // console.log(data);
+                // console.log(options);
+            });
+    }
+</script>

@@ -1,0 +1,45 @@
+﻿@model TraineeWithDepartmentsVM
+@{
+    ViewData["Title"] = "Add Trainee";
+    ViewData["HeaderTitle"] = "Add Trainee";
+}
+
+<button class="btn btn-primary mb-3">
+    <a style="text-decoration:none" class="text-white" href="/trainee/Index">Back to All Trainees</a>
+</button>
+
+<div class="container">
+    <form asp-action="Add" enctype="multipart/form-data">
+        <div class="form-group">
+            <label asp-for="TraineeName">Name</label>
+            <input asp-for="TraineeName" class="form-control" />
+            <span asp-validation-for="TraineeName" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="TraineeAddress">Address</label>
+            <input asp-for="TraineeAddress" class="form-control" />
+            <span asp-validation-for="TraineeAddress" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="TraineeGrade">Grade</label>
+            <input asp-for="TraineeGrade" class="form-control" type="number" />
+            <span asp-validation-for="TraineeGrade" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="DepartmentId">Department</label>
+            <select asp-for="DepartmentId" asp-items="Model.Departments" class="form-control">
+            </select>
+            <span asp-validation-for="DepartmentId" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="imgFile">Image</label>
+            <input asp-for="imgFile" type="file" class="form-control" />
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-2">Submit</button>
+    </form>
+</div>

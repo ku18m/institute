@@ -1,0 +1,55 @@
+﻿<!--NavBar Partial View-->
+
+<nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
+    <div class="container px-4 px-lg-5">
+        <a class="navbar-brand" href="/">Institute</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            Menu
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ms-auto py-4 py-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link px-lg-3 py-3 py-lg-4" asp-area="" asp-controller="Home" asp-action="Index">
+                        <span class="@(ViewContext.RouteData.Values["controller"].ToString() == "Home" ? "activeNav" : "")">
+                            <i class="bi bi-house-door-fill"></i>
+                            Home
+                        </span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link px-lg-3 py-3 py-lg-4 " asp-area="" asp-controller="Instructor" asp-action="Index">
+                        <span class="@(ViewContext.RouteData.Values["controller"].ToString() == "Instructor" ? "activeNav" : "")">
+                            <i class="bi bi-person-badge-fill"></i>
+                            Instructors
+                        </span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link px-lg-3 py-3 py-lg-4" asp-area="" asp-controller="Trainee" asp-action="Index">
+                        <span class="@(ViewContext.RouteData.Values["controller"].ToString() == "Trainee" ? "activeNav" : "")">
+                            <i class="bi bi-person-fill"></i>
+                            Trainees
+                        </span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link px-lg-3 py-3 py-lg-4" asp-area="" asp-controller="Department" asp-action="Index">
+                        <span class="@(ViewContext.RouteData.Values["controller"].ToString() == "Department" ? "activeNav" : "")">
+                            <i class="bi bi-building-fill"></i>
+                            Departments
+                        </span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link px-lg-3 py-3 py-lg-4" asp-area="" asp-controller="Course" asp-action="Index">
+                        <span class="@(ViewContext.RouteData.Values["controller"].ToString() == "Course" ? "activeNav" : "")">
+                            <i class="bi bi-journal-bookmark-fill"></i>
+                            Courses
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

@@ -36,6 +36,9 @@ namespace Institute.Migrations
                     b.Property<int>("DepartmentId")
                         .HasColumnType("int");
 
+                    b.Property<int>("Hours")
+                        .HasColumnType("int");
+
                     b.Property<int>("MinDegree")
                         .HasColumnType("int");
 
@@ -86,7 +89,8 @@ namespace Institute.Migrations
 
                     b.Property<string>("Manager")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -174,7 +178,7 @@ namespace Institute.Migrations
                     b.Property<int>("DepartmentId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Grade")
+                    b.Property<int?>("Grade")
                         .HasColumnType("int");
 
                     b.Property<string>("ImageUrl")
